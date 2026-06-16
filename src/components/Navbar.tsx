@@ -28,7 +28,7 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/#bikes", label: "Bikes" },
     { href: "/browse", label: "See All Bikes" },
-    { href: "/#about", label: "About" },
+    { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];
 

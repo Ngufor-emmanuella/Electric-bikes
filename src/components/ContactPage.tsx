@@ -36,7 +36,7 @@ const labelClass =
   "font-montserrat text-[13px] font-bold tracking-[0.22em] uppercase text-white/70 block mb-2";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "", website: "" });
   const [state, setState] = useState<State>("idle");
 
   const handleChange = (e: { target: { name: string; value: string } }) =>
@@ -53,7 +53,7 @@ export default function ContactPage() {
       });
       if (!res.ok) throw new Error("Failed");
       setState("success");
-      setForm({ name: "", email: "", subject: "", message: "" });
+      setForm({ name: "", email: "", subject: "", message: "", website: "" });
     } catch {
       setState("error");
     }
@@ -449,6 +449,17 @@ export default function ContactPage() {
                         className={`${inputClass} resize-none`}
                       />
                     </div>
+
+                    {/* Honeypot — hidden from real users, bots fill it */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={form.website}
+                      onChange={handleChange}
+                      autoComplete="off"
+                      tabIndex={-1}
+                      style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+                    />
 
                     {/* Submit */}
                     <motion.button

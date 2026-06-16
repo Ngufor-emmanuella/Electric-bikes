@@ -21,7 +21,7 @@ const labelClass =
   "font-montserrat text-xs font-semibold tracking-widest uppercase text-gold/65 block mb-1.5";
 
 export default function PaymentFormModal({ method, cartItems = [], total = 0, onClose }: Props) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", website: "" });
   const [state, setState] = useState<FormState>("idle");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -201,6 +201,17 @@ export default function PaymentFormModal({ method, cartItems = [], total = 0, on
                         className={`${inputClass} resize-none`}
                       />
                     </div>
+
+                    {/* Honeypot — hidden from real users, bots fill it */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={form.website}
+                      onChange={handleChange}
+                      autoComplete="off"
+                      tabIndex={-1}
+                      style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+                    />
 
                     <motion.button
                       type="submit"

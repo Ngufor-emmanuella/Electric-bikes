@@ -3,6 +3,8 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { bikes } from "@/data/bikes";
 
 type StorySection = {
@@ -14,6 +16,7 @@ type StorySection = {
   bikeIndex: number;
   images?: string[];
   split?: boolean;
+  showReadMore?: boolean;
 };
 
 const sections: StorySection[] = [
@@ -22,6 +25,7 @@ const sections: StorySection[] = [
     title: "Ride Without\nLimits.",
     body: "Every trail surrenders to the Light Bee X. With its 6000W mid-drive motor and race-calibrated suspension, no terrain is off-limits. Our lightweight aluminium frame delivers razor-sharp handling that transforms every ride into an experience.",
     stat: { value: "75 mph", label: "Off-road top speed" },
+    showReadMore: true,
     side: "left",
     bikeIndex: 0,
     images: [
@@ -348,6 +352,24 @@ function StoryBlock({ section }: { section: StorySection }) {
                 />
               ))}
             </div>
+          )}
+
+          {section.showReadMore && (
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="mt-7"
+            >
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-gold/40 text-gold font-montserrat text-xs font-bold tracking-[0.2em] uppercase hover:bg-gold/10 hover:border-gold/65 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.1)]"
+              >
+                Read More
+                <ChevronRight size={14} />
+              </Link>
+            </motion.div>
           )}
         </motion.div>
       </div>
