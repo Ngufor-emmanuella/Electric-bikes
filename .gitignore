@@ -1,0 +1,5 @@
+node_modules
+.env.local
+*.html.download
+*Google Sheets*
+*_files/
