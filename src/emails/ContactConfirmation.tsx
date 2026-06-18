@@ -17,7 +17,7 @@ export default function ContactConfirmation({ name }: Props) {
   return (
     <Html>
       <Head />
-      <Preview>Thanks for contacting SUR-RON — we'll be in touch within 24 hours!</Preview>
+      <Preview>Thanks for contacting SUR-RON — we&apos;ll be in touch within 24 hours!</Preview>
       <Body style={main}>
         <Container style={container}>
           <Heading style={logo}>SURON</Heading>
@@ -26,7 +26,7 @@ export default function ContactConfirmation({ name }: Props) {
 
           <Heading style={heading}>Thank You, {name}!</Heading>
           <Text style={paragraph}>
-            We've received your message and truly appreciate you reaching out.
+            We&apos;ve received your message and truly appreciate you reaching out.
             Our team will personally review it and get back to you within 24 business hours.
           </Text>
           <Text style={paragraph}>
