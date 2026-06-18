@@ -67,65 +67,55 @@ function CardInner() {
   );
 }
 
-/* ── Trusted By widget ── */
+/* ── Trusted By widget — same design on all screen sizes ── */
 function TrustedByCard() {
   return (
-    <>
-      {/* ── Mobile: plain centered card, no SVG lines ── */}
-      <div className="md:hidden flex justify-center">
-        <div className="w-full max-w-[280px] bg-white rounded-[22px] p-5 border border-zinc-200/60 shadow-[0_20px_56px_rgba(0,0,0,0.5)]">
+    <div className="flex justify-center">
+      {/*
+        Container: 316 × 330 px
+        Card (white box): left=48, top=48, width=220
+        SVG lines extend from each card corner outward through the 48px padding zone
+      */}
+      <div className="relative" style={{ width: 316, height: 330 }}>
+        <svg
+          width="316"
+          height="330"
+          viewBox="0 0 316 330"
+          style={{ position: "absolute", inset: 0, overflow: "visible", pointerEvents: "none" }}
+        >
+          {/* Top-left corner line */}
+          <path d="M 48 78 L 48 24 Q 48 4 28 4 L 0 4"
+            stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          {/* Top-right corner line */}
+          <path d="M 268 78 L 268 24 Q 268 4 288 4 L 316 4"
+            stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          {/* Bottom-left corner line */}
+          <path d="M 48 262 L 48 308 Q 48 326 28 326 L 0 326"
+            stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          {/* Bottom-right corner line */}
+          <path d="M 268 262 L 268 308 Q 268 326 288 326 L 316 326"
+            stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          {/* 4-pointed sparkle — top-right end */}
+          <g transform="translate(308, -4)">
+            <path d="M4 0L5.2 3.8L9 4L5.2 4.8L4 8.5L2.8 4.8L-1 4L2.8 3.8Z"
+              fill="rgba(212,175,55,0.72)" />
+          </g>
+          {/* 4-pointed sparkle — bottom-left end */}
+          <g transform="translate(-8, 318)">
+            <path d="M4 0L5.2 3.8L9 4L5.2 4.8L4 8.5L2.8 4.8L-1 4L2.8 3.8Z"
+              fill="rgba(212,175,55,0.72)" />
+          </g>
+        </svg>
+
+        {/* White card — absolutely positioned inside the padding zone */}
+        <div
+          className="absolute bg-white rounded-[22px] p-5 border border-zinc-200/60 shadow-[0_24px_64px_rgba(0,0,0,0.55),0_0_0_1px_rgba(0,0,0,0.06)]"
+          style={{ left: 48, top: 48, width: 220 }}
+        >
           <CardInner />
         </div>
       </div>
-
-      {/* ── Desktop: card + SVG corner connector lines ── */}
-      <div className="hidden md:flex justify-center">
-        {/*
-          Container: 316 × 330 px
-          Card (white box): left=48, top=48, width=220
-          SVG lines extend from each card corner outward through the 48px padding zone
-        */}
-        <div className="relative" style={{ width: 316, height: 330 }}>
-          <svg
-            width="316"
-            height="330"
-            viewBox="0 0 316 330"
-            style={{ position: "absolute", inset: 0, overflow: "visible", pointerEvents: "none" }}
-          >
-            {/* Top-left corner line */}
-            <path d="M 48 78 L 48 24 Q 48 4 28 4 L 0 4"
-              stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            {/* Top-right corner line */}
-            <path d="M 268 78 L 268 24 Q 268 4 288 4 L 316 4"
-              stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            {/* Bottom-left corner line */}
-            <path d="M 48 262 L 48 308 Q 48 326 28 326 L 0 326"
-              stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            {/* Bottom-right corner line */}
-            <path d="M 268 262 L 268 308 Q 268 326 288 326 L 316 326"
-              stroke="rgba(212,175,55,0.40)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            {/* 4-pointed sparkle — top-right end */}
-            <g transform="translate(308, -4)">
-              <path d="M4 0L5.2 3.8L9 4L5.2 4.8L4 8.5L2.8 4.8L-1 4L2.8 3.8Z"
-                fill="rgba(212,175,55,0.72)" />
-            </g>
-            {/* 4-pointed sparkle — bottom-left end */}
-            <g transform="translate(-8, 318)">
-              <path d="M4 0L5.2 3.8L9 4L5.2 4.8L4 8.5L2.8 4.8L-1 4L2.8 3.8Z"
-                fill="rgba(212,175,55,0.72)" />
-            </g>
-          </svg>
-
-          {/* White card — absolutely positioned inside the padding zone */}
-          <div
-            className="absolute bg-white rounded-[22px] p-5 border border-zinc-200/60 shadow-[0_24px_64px_rgba(0,0,0,0.55),0_0_0_1px_rgba(0,0,0,0.06)]"
-            style={{ left: 48, top: 48, width: 220 }}
-          >
-            <CardInner />
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 
@@ -327,11 +317,11 @@ export default function AboutPage() {
             <div className="h-px bg-white/[0.06]" />
 
             <p className="font-montserrat text-sm sm:text-base text-white/65 leading-[1.85]">
-              Welcome to <strong className="text-white font-bold">Electric Bikes Doylestown</strong>, your premier destination for cutting-edge electric bikes that blend innovation, performance, and sustainability. Our mission is to empower riders worldwide with eco-friendly transportation solutions, offering a wide range of e-bikes to suit every lifestyle — from urban commuters to off-road adventurers.
+              Welcome to <strong className="text-white font-bold">SUR-RON Electric Bikes,</strong> your premier destination for cutting-edge electric bikes that blend innovation, performance, and sustainability. Our mission is to empower riders worldwide with eco-friendly transportation solutions, offering a wide range of e-bikes to suit every lifestyle — from urban commuters to off-road adventurers.
             </p>
 
             <p className="font-montserrat text-sm sm:text-base text-white/65 leading-[1.85]">
-              At <strong className="text-white font-bold">Electric Bikes Doylestown, Pennsylvania</strong>, we are passionate about redefining how people move, promoting clean energy, and delivering exceptional customer experiences.
+              At <strong className="text-white font-bold">SUR-RON Electric Bikes Doylestown, Pennsylvania,</strong> we are passionate about redefining how people move, promoting clean energy, and delivering exceptional customer experiences.
             </p>
 
             <blockquote className="border-l-2 border-white/15 pl-4 sm:pl-5">

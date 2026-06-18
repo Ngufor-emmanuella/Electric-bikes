@@ -9,16 +9,32 @@ import type { Bike } from "@/data/bikes";
 import BikeCard from "./BikeCard";
 import BikeModal from "./BikeModal";
 
+const CATEGORY_LIMITS: Record<string, number> = {
+  "Light Series": 2,
+  "Storm Series": 2,
+  "Street": 3,
+  "Off-Road": 3,
+};
+
+const HOME_CATEGORY_ORDER = ["Light Series", "Storm Series", "Street", "Off-Road"] as const;
+
+function getDisplayBikes(category: string, allBikes: Bike[]): Bike[] {
+  if (category === "All") {
+    return HOME_CATEGORY_ORDER.flatMap((cat) =>
+      allBikes.filter((b) => b.category === cat).slice(0, CATEGORY_LIMITS[cat])
+    );
+  }
+  const limit = CATEGORY_LIMITS[category] ?? Infinity;
+  return allBikes.filter((b) => b.category === category).slice(0, limit);
+}
+
 export default function BikeCategories() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [selectedBike, setSelectedBike] = useState<Bike | null>(null);
 
   const homeBikes = bikes.filter((b) => b.id !== "talaria-sting-r");
 
-  const filtered =
-    activeCategory === "All"
-      ? homeBikes
-      : homeBikes.filter((b) => b.category === activeCategory);
+  const filtered = getDisplayBikes(activeCategory, homeBikes);
 
   return (
     <section id="bikes" className="py-24 px-6 max-w-7xl mx-auto">
@@ -51,7 +67,7 @@ export default function BikeCategories() {
       >
         {CATEGORIES.map((cat) => {
           const isActive = activeCategory === cat;
-          const count = cat === "All" ? homeBikes.length : homeBikes.filter((b) => b.category === cat).length;
+          const count = getDisplayBikes(cat, homeBikes).length;
           return (
             <motion.button
               key={cat}
