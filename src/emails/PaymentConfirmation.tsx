@@ -19,7 +19,7 @@ export default function PaymentConfirmation({ name, paymentMethod, total }: Prop
   return (
     <Html>
       <Head />
-      <Preview>SUR-RON received your payment inquiry — we'll respond within 24 hours</Preview>
+      <Preview>SUR-RON received your payment inquiry — we&apos;ll respond within 24 hours</Preview>
       <Body style={main}>
         <Container style={container}>
           <Heading style={logo}>SURON</Heading>
@@ -28,7 +28,7 @@ export default function PaymentConfirmation({ name, paymentMethod, total }: Prop
 
           <Heading style={heading}>Inquiry Received, {name}!</Heading>
           <Text style={paragraph}>
-            We've received your <strong style={{ color: "#ffffff" }}>{paymentMethod}</strong> payment
+            We&apos;ve received your <strong style={{ color: "#ffffff" }}>{paymentMethod}</strong> payment
             inquiry{total !== "N/A" ? ` for ${total}` : ""} and will be in touch within 24 hours with
             secure payment details and next steps.
           </Text>
