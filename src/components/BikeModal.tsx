@@ -80,12 +80,11 @@ export default function BikeModal({ bike, onClose }: Props) {
   const total = bike?.colors.length ?? 0;
 
   useEffect(() => {
-    if (bike) {
-      setActiveColor(0);
-      setDirection(1);
-      setAdded(false);
-      document.body.style.overflow = "hidden";
-    }
+    if (!bike) return;
+    setActiveColor(0);
+    setDirection(1);
+    setAdded(false);
+    document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, [bike]);
 
@@ -143,11 +142,11 @@ export default function BikeModal({ bike, onClose }: Props) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: 0.15 }}
           className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6"
           onClick={(e) => e.target === e.currentTarget && onClose()}
         >
-          <div className="absolute inset-0 bg-black/88 backdrop-blur-xl" />
+          <div className="absolute inset-0 bg-black/88 backdrop-blur-md" />
 
           <motion.div
             initial={{ scale: 0.94, opacity: 0, y: 24 }}

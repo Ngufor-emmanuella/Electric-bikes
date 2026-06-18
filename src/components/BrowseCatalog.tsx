@@ -64,7 +64,7 @@ function BikeCard({ bike, onViewDetails }: { bike: Bike; onViewDetails: () => vo
           fill
           className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) calc(50vw - 32px), calc(33vw - 32px)"
-          quality={95}
+          quality={80}
         />
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">

@@ -54,7 +54,7 @@ export default function BikeCard({ bike, onViewDetails }: Props) {
               fill
               className="object-contain p-4"
               sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) calc(50vw - 32px), (max-width: 1280px) calc(33vw - 24px), calc(25vw - 24px)"
-              quality={95}
+              quality={80}
             />
           </motion.div>
         </AnimatePresence>
