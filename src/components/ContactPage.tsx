@@ -35,8 +35,54 @@ const inputClass =
 const labelClass =
   "font-montserrat text-[13px] font-bold tracking-[0.22em] uppercase text-white/70 block mb-2";
 
+const COUNTRY_CODES = [
+  { code: "+1",   flag: "🇺🇸", name: "US / Canada" },
+  { code: "+44",  flag: "🇬🇧", name: "United Kingdom" },
+  { code: "+61",  flag: "🇦🇺", name: "Australia" },
+  { code: "+64",  flag: "🇳🇿", name: "New Zealand" },
+  { code: "+353", flag: "🇮🇪", name: "Ireland" },
+  { code: "+27",  flag: "🇿🇦", name: "South Africa" },
+  { code: "+43",  flag: "🇦🇹", name: "Austria" },
+  { code: "+32",  flag: "🇧🇪", name: "Belgium" },
+  { code: "+55",  flag: "🇧🇷", name: "Brazil" },
+  { code: "+1",   flag: "🇨🇦", name: "Canada" },
+  { code: "+86",  flag: "🇨🇳", name: "China" },
+  { code: "+57",  flag: "🇨🇴", name: "Colombia" },
+  { code: "+420", flag: "🇨🇿", name: "Czech Republic" },
+  { code: "+45",  flag: "🇩🇰", name: "Denmark" },
+  { code: "+20",  flag: "🇪🇬", name: "Egypt" },
+  { code: "+251", flag: "🇪🇹", name: "Ethiopia" },
+  { code: "+33",  flag: "🇫🇷", name: "France" },
+  { code: "+49",  flag: "🇩🇪", name: "Germany" },
+  { code: "+233", flag: "🇬🇭", name: "Ghana" },
+  { code: "+91",  flag: "🇮🇳", name: "India" },
+  { code: "+62",  flag: "🇮🇩", name: "Indonesia" },
+  { code: "+39",  flag: "🇮🇹", name: "Italy" },
+  { code: "+81",  flag: "🇯🇵", name: "Japan" },
+  { code: "+254", flag: "🇰🇪", name: "Kenya" },
+  { code: "+60",  flag: "🇲🇾", name: "Malaysia" },
+  { code: "+52",  flag: "🇲🇽", name: "Mexico" },
+  { code: "+212", flag: "🇲🇦", name: "Morocco" },
+  { code: "+31",  flag: "🇳🇱", name: "Netherlands" },
+  { code: "+234", flag: "🇳🇬", name: "Nigeria" },
+  { code: "+47",  flag: "🇳🇴", name: "Norway" },
+  { code: "+92",  flag: "🇵🇰", name: "Pakistan" },
+  { code: "+63",  flag: "🇵🇭", name: "Philippines" },
+  { code: "+48",  flag: "🇵🇱", name: "Poland" },
+  { code: "+351", flag: "🇵🇹", name: "Portugal" },
+  { code: "+974", flag: "🇶🇦", name: "Qatar" },
+  { code: "+966", flag: "🇸🇦", name: "Saudi Arabia" },
+  { code: "+65",  flag: "🇸🇬", name: "Singapore" },
+  { code: "+82",  flag: "🇰🇷", name: "South Korea" },
+  { code: "+34",  flag: "🇪🇸", name: "Spain" },
+  { code: "+46",  flag: "🇸🇪", name: "Sweden" },
+  { code: "+41",  flag: "🇨🇭", name: "Switzerland" },
+  { code: "+971", flag: "🇦🇪", name: "UAE" },
+  { code: "+380", flag: "🇺🇦", name: "Ukraine" },
+];
+
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "", website: "" });
+  const [form, setForm] = useState({ name: "", email: "", countryCode: "+1", customCode: "", phone: "", subject: "", message: "", website: "" });
   const [state, setState] = useState<State>("idle");
 
   const handleChange = (e: { target: { name: string; value: string } }) =>
@@ -53,7 +99,7 @@ export default function ContactPage() {
       });
       if (!res.ok) throw new Error("Failed");
       setState("success");
-      setForm({ name: "", email: "", subject: "", message: "", website: "" });
+      setForm({ name: "", email: "", countryCode: "+1", customCode: "", phone: "", subject: "", message: "", website: "" });
     } catch {
       setState("error");
     }
@@ -419,6 +465,83 @@ export default function ContactPage() {
                           className={inputClass}
                         />
                       </div>
+                    </div>
+
+                    {/* Phone Number */}
+                    <div>
+                      <label className={labelClass}>
+                        Phone Number <span className="text-white/25">*</span>
+                      </label>
+                      <div className="flex gap-2">
+                        {/* Country code dropdown */}
+                        <div className="relative shrink-0">
+                          <select
+                            name="countryCode"
+                            value={form.countryCode}
+                            onChange={handleChange}
+                            className="appearance-none bg-white/[0.04] border border-white/[0.10] focus:border-white/35 rounded-xl pl-3 pr-8 py-3.5 font-montserrat text-base text-white outline-none transition-colors duration-200 cursor-pointer"
+                            style={{ minWidth: "110px" }}
+                          >
+                            {COUNTRY_CODES.map((c, i) => (
+                              <option
+                                key={`${c.code}-${i}`}
+                                value={c.code}
+                                className="bg-[#111111] text-white"
+                              >
+                                {c.flag} {c.code}
+                              </option>
+                            ))}
+                            <option value="other" className="bg-[#111111] text-white">
+                              ✏️ Other
+                            </option>
+                          </select>
+                          {/* Chevron icon */}
+                          <div className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </div>
+                        </div>
+                        {/* Phone number input */}
+                        <input
+                          name="phone"
+                          type="tel"
+                          required
+                          value={form.phone}
+                          onChange={handleChange}
+                          placeholder="(555) 000-0000"
+                          className={inputClass}
+                        />
+                      </div>
+
+                      {/* Custom code input — slides in when "Other" is selected */}
+                      <AnimatePresence>
+                        {form.countryCode === "other" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                            animate={{ opacity: 1, height: "auto", marginTop: 8 }}
+                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="font-montserrat text-xs text-white/40 shrink-0">
+                                Your code:
+                              </span>
+                              <input
+                                name="customCode"
+                                type="text"
+                                required
+                                value={form.customCode}
+                                onChange={handleChange}
+                                placeholder="e.g. +234"
+                                maxLength={6}
+                                className="w-full bg-white/[0.04] border border-gold/25 focus:border-gold/60 rounded-xl px-4 py-2.5 font-montserrat text-sm text-white placeholder-white/30 outline-none transition-colors duration-200"
+                              />
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
                     {/* Subject */}

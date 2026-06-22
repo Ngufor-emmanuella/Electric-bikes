@@ -170,12 +170,12 @@ export default function PaymentFormModal({ method, cartItems = [], total = 0, on
                     {(["name", "email", "phone"] as const).map((field) => (
                       <div key={field}>
                         <label className={labelClass}>
-                          {field === "name" ? "Full Name" : field === "email" ? "Email Address" : "Phone Number"}
+                          {field === "name" ? "Full Name *" : field === "email" ? "Email Address *" : "Phone Number *"}
                         </label>
                         <input
                           name={field}
                           type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
-                          required={field !== "phone"}
+                          required
                           value={form[field]}
                           onChange={handleChange}
                           placeholder={
