@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Zap, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const SocialIcons = [
   {
@@ -43,14 +44,19 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/20 bg-[#080808]">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-10 md:mb-16 items-start">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 flex-1">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-5">
-              <div className="w-8 h-8 rounded-full bg-gold flex items-center justify-center shadow-[0_0_12px_rgba(255,255,255,0.35)]">
-                <Zap size={15} className="text-black fill-black" />
-              </div>
-              <span className="font-playfair text-xl font-bold text-white">SUR-RON</span>
+            <div className="mb-5">
+              <Image
+                src="/images/bikes/storm-bee/surron-logo.png"
+                alt="SUR-RON"
+                width={300}
+                height={132}
+                className="w-auto object-contain"
+                style={{ height: "8.25rem" }}
+              />
             </div>
             <p className="font-montserrat text-sm text-white/70 leading-relaxed mb-5">
               Premium electric motorcycles engineered for those who demand extraordinary performance and uncompromising design.
@@ -124,6 +130,20 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+
+          {/* Screen image — right side */}
+          <div className="hidden lg:flex shrink-0 items-start justify-center pt-1">
+            <div className="bg-white rounded-2xl p-3">
+              <Image
+                src="/images/bikes/storm-bee/screen.png"
+                alt="SUR-RON App"
+                width={260}
+                height={380}
+                className="rounded-xl object-contain w-[200px] xl:w-[240px]"
+              />
+            </div>
           </div>
         </div>
 
