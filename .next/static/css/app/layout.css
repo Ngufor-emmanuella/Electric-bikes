@@ -1009,8 +1009,8 @@ video {
 .w-96 {
   width: 24rem;
 }
-.w-\[200px\] {
-  width: 200px;
+.w-\[180px\] {
+  width: 180px;
 }
 .w-\[22px\] {
   width: 22px;
@@ -2699,6 +2699,10 @@ input:focus, textarea:focus {
     width: 2rem;
   }
 
+  .sm\:w-\[220px\] {
+    width: 220px;
+  }
+
   .sm\:w-\[34\%\] {
     width: 34%;
   }
@@ -3145,8 +3149,8 @@ input:focus, textarea:focus {
     grid-column: span 2 / span 2;
   }
 
-  .lg\:flex {
-    display: flex;
+  .lg\:w-auto {
+    width: auto;
   }
 
   .lg\:grid-cols-3 {

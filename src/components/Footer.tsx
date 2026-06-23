@@ -133,15 +133,15 @@ export default function Footer() {
           </div>
         </div>
 
-          {/* Screen image — right side */}
-          <div className="hidden lg:flex shrink-0 items-start justify-center pt-1">
+          {/* Screen image — right side on desktop, centered below grid on mobile */}
+          <div className="flex shrink-0 items-start justify-center pt-1 w-full lg:w-auto">
             <div className="bg-white rounded-2xl p-3">
               <Image
                 src="/images/bikes/storm-bee/screen.png"
                 alt="SUR-RON App"
                 width={260}
                 height={380}
-                className="rounded-xl object-contain w-[200px] xl:w-[240px]"
+                className="rounded-xl object-contain w-[180px] sm:w-[220px] xl:w-[240px]"
               />
             </div>
           </div>
