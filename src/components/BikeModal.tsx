@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   X, ShoppingCart, Check, Zap, Battery, Gauge, Shield, Weight, Clock,
   ChevronLeft, ChevronRight,
@@ -79,8 +79,17 @@ export default function BikeModal({ bike, onClose }: Props) {
 
   const total = bike?.colors.length ?? 0;
 
+  // Always reset immediately when close is triggered — don't wait for effect cleanup
+  const handleClose = useCallback(() => {
+    document.body.style.overflow = "";
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
-    if (!bike) return;
+    if (!bike) {
+      document.body.style.overflow = "";
+      return;
+    }
     setActiveColor(0);
     setDirection(1);
     setAdded(false);
@@ -90,14 +99,14 @@ export default function BikeModal({ bike, onClose }: Props) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") handleClose();
       if (e.key === "ArrowRight") handleNext();
       if (e.key === "ArrowLeft") handlePrev();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onClose, activeColor, total]);
+  }, [handleClose, activeColor, total]);
 
   // Scroll desktop vertical strip to active thumb
   useEffect(() => {
@@ -144,7 +153,7 @@ export default function BikeModal({ bike, onClose }: Props) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
           className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6"
-          onClick={(e) => e.target === e.currentTarget && onClose()}
+          onClick={(e) => e.target === e.currentTarget && handleClose()}
         >
           <div className="absolute inset-0 bg-black/88 backdrop-blur-md" />
 
@@ -157,7 +166,7 @@ export default function BikeModal({ bike, onClose }: Props) {
           >
             {/* Close */}
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="absolute top-3 right-3 md:top-4 md:right-4 z-30 w-10 h-10 md:w-9 md:h-9 rounded-full bg-black/70 md:bg-gold/10 hover:bg-white/10 border border-white/30 md:border-gold/20 flex items-center justify-center text-white md:text-gold/70 hover:text-white/60 transition-all duration-200 shadow-lg"
             >
               <X size={18} className="md:hidden" />
